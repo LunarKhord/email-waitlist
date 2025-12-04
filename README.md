@@ -32,8 +32,8 @@ pip install uv
 ### 2\. Clone the Repository
 
 ```bash
-git clone [YOUR_REPO_URL]
-cd [repo-directory-name]
+git clone https://github.com/LunarKhord/email-waitlist.git
+cd email-waitlist
 ```
 
 ### 3\. Setup Virtual Environment and Install Dependencies (using `uv`)
