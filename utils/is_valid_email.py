@@ -1,10 +1,13 @@
-import httpx # Import httpx instead of requests
-
+import httpx
+from typing import Dict
+import logging
+from sqlalchemy.ext.asyncio import AsyncSession
+from services.database import commit_email
 """
 This module serves the purpose of validating the passed in email by the prospect
 """
 
-async def is_valid_email(email_payload) -> bool:
+async def is_valid_email(db_session:AsyncSession, email_payload: Dict) -> bool:
 	# 1. Extract the dictionary and the email value
 	email_payload_dict = email_payload.model_dump()
 	email = email_payload_dict.get("email")
@@ -18,9 +21,12 @@ async def is_valid_email(email_payload) -> bool:
 		)
 
 	# Check the status and content
-	print(response.json())
+	print(type(response.json()))
+	email_payload = response.json()
 
 	# Example logic to return True/False based on the response
 	if response.status_code == 200 and response.json().get("status") == "VALID":
+		await commit_email(db_session, email_payload)
 		return True
 	return False
+
