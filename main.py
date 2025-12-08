@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Depends, Request, HTTPException, status
+from fastapi.middleware.cors import CORSMiddleware
 from models.waitlist import WaitList
 from configs.rabbit_mq import lifespan
 from utils.is_valid_email import is_valid_email
@@ -25,6 +26,10 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="Waitlist", lifespan=lifespan)
 
+
+# CORS Configuration
+origins = ["http://localhost:8000", "https://procuraassist.vercel.app/"]
+app.add_middleware(CORSMiddleware, allow_origins=origins, allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
 
 """
 This endpoint serves the purpose
