@@ -6,8 +6,6 @@ from typing import AsyncGenerator
 import logging
 from sqlalchemy import exc
 
-# ... (Configuration and setup remain the same) ...
-
 load_dotenv()
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
