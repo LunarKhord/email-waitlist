@@ -1,12 +1,7 @@
-# --- Core Web Engine ---
 fastapi==0.109.0
 uvicorn[standard]==0.27.0
 python-dotenv==1.0.1
-
-# --- Data & Validation ---
 pydantic[email]==2.6.1
 supabase==2.3.7
-
-# --- Security & Network ---
-httpx==0.26.0
-cryptography==41.0.7
+email-validator
+# We remove the manual httpx pin to let supabase manage it
