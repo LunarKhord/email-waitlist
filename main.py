@@ -48,10 +48,11 @@ async def add_to_wait_list(request: Request, payload: WaitList):
     try:
         # EXECUTE the save
         response = await save_to_db(superbase, SUPABASE_TABLE_NAME, pydantic_dump)
-        return {"message": "Email was added.", "data": response.data}
+        return {"message": "Email was added.", "status": "success", "data": response.data}
     except Exception as e:
         logger.error(f"POST route failed: {str(e)}")
         return {
             "message": "Technical Failure",
+            "status": "error",
             "detail": str(e)
         }
