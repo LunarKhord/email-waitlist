@@ -1,4 +1,4 @@
-from fastapi import FastAPI, request
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from supabase import create_client
 from lifespan import lifespan
