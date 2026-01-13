@@ -16,10 +16,9 @@ logger = logging.getLogger(__name__)
 
 load_dotenv()
 
-SUPERBASE_TABLE_NAME = os.getenv("SUPERBASE_TABLE_NAME")
-if SUPERBASE_TABLE_NAME is None:
-    SUPERBASE_TABLE_NAME = "waitlist"
-
+SUPABASE_TABLE_NAME = os.getenv("SUPABASE_TABLE_NAME")
+if SUPABASE_TABLE_NAME is None:
+    SUPABASE_TABLE_NAME = "waitlist"
 
 
 origins = ["*"]
