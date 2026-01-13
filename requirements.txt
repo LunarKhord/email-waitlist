@@ -3,5 +3,6 @@ uvicorn[standard]==0.27.0
 python-dotenv==1.0.1
 pydantic[email]==2.6.1
 supabase==2.3.7
+# This is the "Magic Bullet" fix
+httpx==0.27.2
 email-validator
-# We remove the manual httpx pin to let supabase manage it
