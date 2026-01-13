@@ -1,4 +1,5 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, request
+from fastapi.middleware.cors import CORSMiddleware
 from supabase import create_client
 from lifespan import lifespan
 
@@ -21,7 +22,20 @@ if SUPERBASE_TABLE_NAME is None:
 
 
 
+origins = ["*"]
+
+
 app = FastAPI(title="Email Waitlist", lifespan=lifespan)
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 @app.get("/health")
 async def wait_list_health():
