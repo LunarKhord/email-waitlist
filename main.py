@@ -1,10 +1,27 @@
 from fastapi import FastAPI, Request
+from supabase import create_client
+from lifespan import lifespan
+
 from src.models.wait_list import WaitList
+from src.services.superbase_manager import save_to_db
+
+from dotenv import load_dotenv
+import logging
+import os
+
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+load_dotenv()
+
+SUPERBASE_TABLE_NAME = os.getenv("SUPERBASE_TABLE_NAME")
+if SUPERBASE_TABLE_NAME is None:
+    SUPERBASE_TABLE_NAME = "waitlist"
 
 
 
-app = FastAPI()
-
+app = FastAPI(title="Email Waitlist", lifespan=lifespan)
 
 @app.get("/health")
 async def wait_list_health():
@@ -13,6 +30,13 @@ async def wait_list_health():
 
 
 @app.post("/api/v1/waitlist")
-async def add_to_wait_list(payload: WaitList):
+async def add_to_wait_list(request: Request, payload: WaitList):
     pydantic_dump = payload.model_dump()
-    print(pydantic_dump)
+    superbase = request.app.state.superbase
+    try:
+        response = await save_to_db(superbase, SUPERBASE_TABLE_NAME, pydantic_dump)
+        print(response)
+        if response is True:
+            return {"message": "Email was added to waitlist."}
+    except Exception as e:
+        return {"message": "Unable to save email, either exists or not valid email."}
