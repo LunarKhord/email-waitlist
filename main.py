@@ -41,15 +41,17 @@ async def wait_list_health():
     return {"status": "OK"}
 
 
-
 @app.post("/api/v1/waitlist")
 async def add_to_wait_list(request: Request, payload: WaitList):
     pydantic_dump = payload.model_dump()
     superbase = request.app.state.superbase
     try:
-        response = await save_to_db(superbase, SUPERBASE_TABLE_NAME, pydantic_dump)
-        print(response)
-        if response is True:
-            return {"message": "Email was added to waitlist."}
+        # EXECUTE the save
+        response = await save_to_db(superbase, SUPABASE_TABLE_NAME, pydantic_dump)
+        return {"message": "Email was added.", "data": response.data}
     except Exception as e:
-        return {"message": "Unable to save email, either exists or not valid email."}
+        logger.error(f"POST route failed: {str(e)}")
+        return {
+            "message": "Technical Failure",
+            "detail": str(e)
+        }
