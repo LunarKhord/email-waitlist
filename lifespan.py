@@ -17,9 +17,9 @@ SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY")
 
 if not SUPABASE_URL:
-    SUPABASE_URL = "https://vblydvoaercptwoudryp.supabase.co"
+    raise ValueError("SUPABASE_URL environment variable is not set.")
 if not SUPABASE_KEY:
-    SUPABASE_KEY = "sb_publishable_6MRue7UftVnBfafQAlzBVA_i1zmYKJM"
+    raise ValueError("SUPABASE_KEY environment variable is not set.")
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
