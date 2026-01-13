@@ -16,7 +16,10 @@ load_dotenv()
 SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY")
 
-
+if not SUPABASE_URL:
+    SUPABASE_URL = "https://vblydvoaercptwoudryp.supabase.co"
+if not SUPABASE_KEY:
+    SUPABASE_KEY = "sb_publishable_6MRue7UftVnBfafQAlzBVA_i1zmYKJM"
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
