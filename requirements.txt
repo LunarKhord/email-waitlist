@@ -1,8 +1,6 @@
-fastapi==0.109.0
-uvicorn[standard]==0.27.0
-python-dotenv==1.0.1
-pydantic[email]==2.6.1
-supabase==2.3.7
-# This is the "Magic Bullet" fix
-httpx==0.27.2
+fastapi
+uvicorn[standard]
+python-dotenv
+pydantic[email]
+supabase
 email-validator
