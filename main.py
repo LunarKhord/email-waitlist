@@ -45,6 +45,11 @@ async def wait_list_health():
 async def add_to_wait_list(request: Request, payload: WaitList):
     pydantic_dump = payload.model_dump()
     superbase = request.app.state.superbase
+
+
+    print("Pydantic Dump:", pyndatic_dump)
+    print("Supabase Client:", superbase)
+    
     try:
         # EXECUTE the save
         response = await save_to_db(superbase, SUPABASE_TABLE_NAME, pydantic_dump)
